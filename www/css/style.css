@@ -109,6 +109,7 @@ h1 {
 /* container */
 #toolbar{
   margin: 15px 0;
+  line-height: 2rem;
 }
 
 #toolbar button {
@@ -161,4 +162,15 @@ form {
 #btn-cmd-add {
   display: block;
   float: right;
+}
+
+.demo-link {
+  float: right;
+  display: inline-block;
+  margin-left: 2rem;
+  font-size: 1.7rem;
+  padding: 0.5rem;
+}
+a.demo-link:hover {
+  text-decoration: none;
 }

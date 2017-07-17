@@ -10,12 +10,12 @@ linkDialog.onConnect = function(){
 };
 
 
-$('#link-button').on(Input.end, function(e){
+$('#link-button').on(Input.start, function(e){
     linkDialog.open();
     e.preventDefault();
 });
 
-$('#btn-cmd-add').on(Input.end, function(e){
+$('#btn-cmd-add').on(Input.start, function(e){
     var item = '<div class="cmd-item">' +
                     '<div class="form-group col-xs-9 cmd">' +
                         '<input type="text" class="form-control cmd-input" placeholder="ff 55 03 10 00 11 12 13">' +
@@ -26,7 +26,7 @@ $('#btn-cmd-add').on(Input.end, function(e){
 });
 
 
-$('.form-inline').on(Input.end, '.cmd-item .btn-send', function(e){
+$('.form-inline').on(Input.start, '.cmd-item .btn-send', function(e){
     console.log(1)
     var value = $(this).parent().find(".cmd-input").val();
     if(value.length) {
