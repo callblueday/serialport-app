@@ -1,0 +1,26 @@
+{
+    "name": "serialport-app",
+    "version": "1.0.0",
+    "description": "serialport app",
+    "main": "app.js",
+    "scripts": {
+        "build": "browserify src/*.js --full-path=false -o www/js/app.js",
+        "mini": "browserify src/*.js -g uglifyify --full-path=false -o www/js/app.min.js",
+        "watch": "watchify src/*.js -o www/js/app.js -v",
+        "start": "npm run watch",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Hyman",
+    "license": "ISC",
+    "devDependencies": {
+        "browserify": "^13.0.1"
+    },
+    "cordova": {
+        "plugins": {
+            "cordova-plugin-whitelist": {}
+        }
+    },
+    "dependencies": {
+        "cordova-plugin-whitelist": "1"
+    }
+}
