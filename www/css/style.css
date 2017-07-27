@@ -56,17 +56,31 @@ h1 {
   -webkit-tap-highlight-color: transparent;
 }
 
+.tingle-modal-box__content {
+  padding: 2rem;
+  height: 100%;
+}
+
 .tingle-modal__close{
   display: none;
 }
 
 .tingle-modal-box {
   width: 95%;
+  height: 90%;
+  overflow: hidden;
+}
+
+.connectDialog {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .dialogHeader {
   font-size: 26px;
   padding: 0 ;
+  height: 3rem;
 }
 
 .dialogHeader i {
@@ -82,8 +96,9 @@ h1 {
 }
 
 .connectList {
+  flex: 1;
   padding: 0;
-  height: 400px;
+  /*height: 400px;*/
   overflow-y: auto;
 }
 

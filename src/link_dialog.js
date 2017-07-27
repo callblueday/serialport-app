@@ -26,6 +26,7 @@ function LinkDialog() {
         // if(!device.name || device.name.indexOf('Makeblock') == -1){
         //   return;
         // }
+        console.log(device.name);
         var distance = Math.pow(10.0,((Math.abs(parseInt(device.rssi))-50.0)/50.0))*0.7;
         var li = document.createElement('li');
         li.innerHTML = device.name+'<span class="distance">'+distance.toFixed(1)+' m</span>';

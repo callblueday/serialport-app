@@ -2,6 +2,7 @@
   background: #ccc;
   height: 100px;
   width: 100%;
+  padding-top: 40px;
 
   display: flex;
   flex-direction: row;
@@ -21,6 +22,17 @@
   flex-shrink: 0;
   height: 100%;
   position: relative;
+}
+
+.front {
+  display: flex!important;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.joystick-name {
+
 }
 
 .cbutton {
@@ -44,4 +56,9 @@
 .cbutton:hover {
     color: #108ee9;
     border-color: #108ee9;
+}
+
+.cbutton:active {
+    position: relative;
+    top: 3px;
 }
