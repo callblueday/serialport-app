@@ -1,117 +1,113 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
-        <meta name="format-detection" content="telephone=no">
-        <meta name="msapplication-tap-highlight" content="no">
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-        <title>serialport app</title>
-
-        <link rel="stylesheet" href="css/font-awesome.min.css">
-        <link rel="stylesheet" href="vendors/tingle/tingle.min.css">
-        <link rel="stylesheet" href="vendors/bootstrap-v3/css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/style.css">
-
-        <script src="vendors/jquery-2.1.3.min.js"></script>
-        <script src="vendors/bootstrap-v3/js/bootstrap.min.js"></script>
-    </head>
-
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>anno</title>
+    <link rel="stylesheet" href="static/css/font-awesome.min.css">
+    <link rel="stylesheet" href="static/css/bootstrap.min.css">
+  </head>
   <body>
+    <article id="app"></article>
+    <script src="cordova.js"></script>
+    <script src="./lib/blockly_compressed.js"></script>
+    <script src="./lib/blocks_compressed.js"></script>
+    <script src="./lib/msg/js/en.js"></script>
+    <script src="./static/js/jquery-2.1.3.min.js"></script>
+    <script src="./static/js/bootstrap.min.js"></script>
 
-    <div class="container">
-        <div id="toolbar">
-            <button id="link-button" class="fa fa-bluetooth" aria-hidden="true"></button>
-            <a href="components/code/index.html" class="demo-link">code</a>
-            <a href="components/control/index.html" class="demo-link">control</a>
-        </div>
+    <xml id="toolbox" style="display: none">
+      <category name="Start">
+          <block type="controls_if"></block>
+      </category>
+      <category name="Move">
+          <block type="controls_if"></block>
+      </category>
+      <category name="Logic">
+          <block type="controls_if"></block>
+          <block type="controls_if">
+            <mutation else="1"></mutation>
+          </block>
+          <block type="controls_if">
+            <mutation elseif="1" else="1"></mutation>
+          </block>
+          <block type="logic_compare"></block>
+          <block type="logic_operation"></block>
+          <block type="logic_negate"></block>
+          <block type="logic_boolean"></block>
+          <block type="logic_null"></block>
+          <block type="logic_ternary"></block>
+      </category>
+      <category name="Loops">
+        <block type="controls_repeat_ext">
+          <value name="TIMES">
+            <block type="math_number">
+              <field name="NUM">10</field>
+            </block>
+          </value>
+        </block>
+        <block type="controls_whileUntil"></block>
+        <block type="controls_for">
+          <field name="VAR">i</field>
+          <value name="FROM">
+            <block type="math_number">
+              <field name="NUM">1</field>
+            </block>
+          </value>
+          <value name="TO">
+            <block type="math_number">
+              <field name="NUM">10</field>
+            </block>
+          </value>
+          <value name="BY">
+            <block type="math_number">
+              <field name="NUM">1</field>
+            </block>
+          </value>
+        </block>
+        <block type="controls_forEach"></block>
+        <block type="controls_flow_statements"></block>
+      </category>
+      <category name="Math">
+        <block type="math_number"></block>
+        <block type="math_arithmetic"></block>
+        <block type="math_single"></block>
+        <block type="math_trig"></block>
+        <block type="math_constant"></block>
+        <block type="math_number_property"></block>
+        <block type="math_round"></block>
+        <block type="math_on_list"></block>
+        <block type="math_modulo"></block>
+        <block type="math_constrain">
+          <value name="LOW">
+            <block type="math_number">
+              <field name="NUM">1</field>
+            </block>
+          </value>
+          <value name="HIGH">
+            <block type="math_number">
+              <field name="NUM">100</field>
+            </block>
+          </value>
+        </block>
+        <block type="math_random_int">
+          <value name="FROM">
+            <block type="math_number">
+              <field name="NUM">1</field>
+            </block>
+          </value>
+          <value name="TO">
+            <block type="math_number">
+              <field name="NUM">100</field>
+            </block>
+          </value>
+        </block>
+        <block type="math_random_float"></block>
+      </category>
+      <category name="Variables" custom="VARIABLE"></category>
+      <category name="Functions" custom="PROCEDURE"></category>
+    </xml>
 
-        <div class="workspace">
-            <div class="msg">
-                <p>hello</p>
-            </div>
-
-            <form>
-                <label class="radio-inline">
-                  <input type="radio" name="cmdMode" id="" value="hex" checked> HEX
-                </label>
-                <label class="radio-inline">
-                  <input type="radio" name="cmdMode" id="" value="acsii"> ASCII
-                </label>
-            </form>
-
-            <form class="form-inline ops">
-                <div class="cmd-item">
-                    <div class="form-group col-xs-9 cmd">
-                        <input type="text" class="form-control cmd-input" placeholder="ff 55 03 00 01 00" value="ff 55 06 00 02 0a 09 ff 00">
-                    </div>
-                    <button type="button" class="btn btn-default col-xs-3 btn-send">Send</button>
-                </div>
-                <div class="cmd-item">
-                    <div class="form-group col-xs-9 cmd">
-                        <input type="text" class="form-control cmd-input" placeholder="ff 55 03 00 01 00" value="ff 55 06 00 02 0a 09 00 00">
-                    </div>
-                    <button type="button" class="btn btn-default col-xs-3 btn-send">Send</button>
-                </div>
-
-                <div class="cmd-item">
-                    <div class="form-group col-xs-9 cmd">
-                        <input type="text" class="form-control cmd-input" placeholder="G91" value="G91">
-                    </div>
-                    <button type="button" class="btn btn-default col-xs-3 btn-send">Send</button>
-                </div>
-
-                <div class="cmd-item">
-                    <div class="form-group col-xs-9 cmd">
-                        <input type="text" class="form-control cmd-input" placeholder="G01 A10 F2000" value="G01 A10 F2000">
-                    </div>
-                    <button type="button" class="btn btn-default col-xs-3 btn-send">Send</button>
-                </div>
-
-                <div class="cmd-item">
-                    <div class="form-group col-xs-9 cmd">
-                        <input type="text" class="form-control cmd-input" placeholder="G90" value="G90">
-                    </div>
-                    <button type="button" class="btn btn-default col-xs-3 btn-send">Send</button>
-                </div>
-
-                <div class="cmd-item">
-                    <div class="form-group col-xs-9 cmd">
-                        <input type="text" class="form-control cmd-input" placeholder="G01 A10 F2000" value="G01 A10 F2000">
-                    </div>
-                    <button type="button" class="btn btn-default col-xs-3 btn-send">Send</button>
-                </div>
-
-                <div class="cmd-item">
-                    <div class="form-group col-xs-9 cmd">
-                        <input type="text" class="form-control cmd-input" placeholder="G01 A10 B10 C10 D10 X10 F2000" value="G01 A10 B10 C10 D10 X10 F2000">
-                    </div>
-                    <button type="button" class="btn btn-default col-xs-3 btn-send">Send</button>
-                </div>
-            </form>
-            <div class="col-xs-12 menus">
-                <button id="btn-cmd-add" class="btn fa fa-plus"></button>
-            </div>
-        </div>
-
-    </div>
-
-    <script id="dialogContent" type="text/html">
-        <div class="connectDialog">
-            <div class="dialogHeader">
-                <i class="fa fa-bluetooth"></i>
-                <div class="headerRight">
-                    <i class="fa fa-refresh connect-dialog-refresh"></i>
-                    <i class="fa fa-times connect-dialog-close"></i>
-                </div>
-            </div>
-            <ul class="connectList">
-            </ul>
-        </div>
-    </script>
-
-    <script type="text/javascript" src="cordova.js"></script>
-    <script src="vendors/tingle/tingle.min.js"></script>
-    <script type="text/javascript" src="js/app.js"></script>
-    <script type="text/javascript" src="js/index.js"></script>
-  </body>
+  <script type="text/javascript" src="lib.min.js"></script><script type="text/javascript" src="index.js"></script></body>
 </html>
