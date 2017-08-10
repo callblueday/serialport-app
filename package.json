@@ -1,34 +1,38 @@
 {
     "name": "serialport-app",
     "version": "1.0.0",
-    "description": "serialport app",
-    "main": "app.js",
+    "description": "``` cordova platform add ios cordova platform add android ``` ### Add plugins",
+    "main": "index.js",
     "scripts": {
-        "build": "browserify src/*.js --full-path=false -o www/js/app.js",
-        "mini": "browserify src/*.js -g uglifyify --full-path=false -o www/js/app.min.js",
-        "watch": "watchify src/*.js -o www/js/app.js -v",
-        "start": "npm run watch",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
-    "author": "Hyman",
-    "license": "ISC",
-    "devDependencies": {
-        "browserify": "^13.0.1"
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/callblueday/serialport-app.git"
     },
-
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/callblueday/serialport-app/issues"
+    },
+    "homepage": "https://github.com/callblueday/serialport-app#readme",
+    "dependencies": {
+        "cordova-android": "^6.2.3",
+        "cordova-ios": "^4.4.0",
+        "cordova-plugin-ble-central": "^1.1.4",
+        "cordova-plugin-compat": "^1.1.0",
+        "cordova-plugin-whitelist": "^1.3.2"
+    },
     "cordova": {
         "platforms": [
             "android",
             "ios"
         ],
         "plugins": {
-            "cordova-plugin-app-version": {},
-            "cordova-plugin-crosswalk-webview": {},
-
+            "cordova-plugin-whitelist": {},
+            "cordova-plugin-ble-central": {
+                "BLUETOOTH_USAGE_DESCRIPTION": " "
+            }
         }
-    },
-    "dependencies": {
-        "cordova-plugin-whitelist": "1",
-        "cordova-plugin-crosswalk-webview": "^2.3.0",
     }
 }
