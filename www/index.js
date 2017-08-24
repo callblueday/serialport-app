@@ -1454,9 +1454,14 @@ var Comm = function () {
 
     this.settings = {
       isConnected: false,
-      commServiceID: 'FFE1',
-      writeCharacteristicID: 'FFE3',
-      readCharacteristicID: 'FFE2'
+      // commServiceID: 'FFE1',
+      // writeCharacteristicID: 'FFE3',
+      // readCharacteristicID: 'FFE2'
+      commServiceID: 'FFE0',
+      writeCharacteristicID: 'FFE1',
+      readCharacteristicID: 'FFE1'
+
+      // 服务 + 特征 = 功能
     };
   }
 
@@ -1496,6 +1501,36 @@ var Comm = function () {
       }
       return result;
     }
+
+    // ASCII only
+
+  }, {
+    key: 'stringToBytes',
+    value: function stringToBytes(string) {
+      var array = new Uint8Array(string.length);
+      for (var i = 0, l = string.length; i < l; i++) {
+        array[i] = string.charCodeAt(i);
+      }
+      return array.buffer;
+    }
+  }, {
+    key: 'stringToAsciiCode',
+    value: function stringToAsciiCode(string) {
+      var result = [];
+      var list = string.split('');
+      for (var i in list) {
+        result.push(list[i].charCodeAt());
+      }
+      return result;
+    }
+
+    // ASCII only
+
+  }, {
+    key: 'bytesToString',
+    value: function bytesToString(buffer) {
+      return String.fromCharCode.apply(null, new Uint8Array(buffer));
+    }
   }, {
     key: 'receiveData',
     value: function receiveData() {
@@ -1507,7 +1542,8 @@ var Comm = function () {
             // read success
             var result = data;
             if ((typeof data === 'undefined' ? 'undefined' : (0, _typeof3.default)(data)) == 'object') {
-              result = self.arrayFromArrayBuffer(data).join(" ");
+              // result = self.arrayFromArrayBuffer(data).join(" ");
+              result = self.bytesToString(data);
             }
             console.log(result);
             _emitter.Emitter.emit('ReceiveDataFromBle', result);
@@ -1527,7 +1563,11 @@ var Comm = function () {
       var cmdType = type ? type : "ascii";
       var cmd = buf;
       if (cmdType != "hex") {
-        console.log(cmd);
+        // cmd = self.stringToBytes(cmd);
+        var temp = self.stringToAsciiCode(cmd).concat([10]); // 加上回车符号
+        console.log(temp);
+        cmd = self.arrayBufferFromArray(temp);
+        // console.log(cmd);
       } else {
         console.log(buf.join(", "));
         cmd = self.arrayBufferFromArray(buf);
@@ -4270,22 +4310,22 @@ var Action = function () {
   (0, _createClass3.default)(Action, [{
     key: "start",
     value: function start() {
-      _comm.comm.send('G21 \n');
+      _comm.comm.send('G2');
     }
   }, {
     key: "resetAllAxis",
     value: function resetAllAxis() {
-      _comm.comm.send('G00 A0 B0 C0 D0 X0 Y0 Z0 \n');
+      _comm.comm.send('G00 A0 B0 C0 D0 X0 Y0 Z');
     }
   }, {
     key: "setRelativeMove",
     value: function setRelativeMove() {
-      _comm.comm.send('G91 \n');
+      _comm.comm.send('G9');
     }
   }, {
     key: "setAbsoluteMove",
     value: function setAbsoluteMove() {
-      _comm.comm.send('G90 \n');
+      _comm.comm.send('G9');
     }
 
     // 相对单轴运动
@@ -4294,7 +4334,7 @@ var Action = function () {
     key: "move",
     value: function move(axis, angle, speed) {
       speed = speed > 2000 ? 2000 : speed;
-      var cmd = 'G01 ' + axis + angle + ' F' + speed + '\n';
+      var cmd = 'G01 ' + axis + angle + ' F' + speed;
       _comm.comm.send(cmd);
     }
 
@@ -4303,7 +4343,7 @@ var Action = function () {
   }, {
     key: "moveAllAxis",
     value: function moveAllAxis(as, bs, cs, ds, xs, speed) {
-      var cmd = 'G01 A' + as + ' B' + bs + ' C' + cs + ' D' + ds + ' X' + xs + ' F' + speed + '\n';
+      var cmd = 'G01 A' + as + ' B' + bs + ' C' + cs + ' D' + ds + ' X' + xs + ' F' + speed;
       _comm.comm.send(cmd);
     }
 
@@ -4509,7 +4549,32 @@ var CmdMode = function (_Component) {
         }
         cmd = decimalArray;
       } else {
-        cmd = value + '\n';
+        cmd = value;
+      }
+
+      this.addMsg(cmd.toString());
+      _comm.comm.send(cmd, cmdType);
+    }
+  }, {
+    key: 'sendTextArea',
+    value: function sendTextArea(e) {
+      var cmdType = document.querySelector('[name=cmdMode]:checked').value;
+      var value = e.target.parentNode.querySelector('textarea').value;
+      var cmd = null;
+
+      var valueArray = value.split(" "),
+          hexArray = [],
+          decimalArray = [];
+      if (cmdType == 'hex') {
+        for (var i in valueArray) {
+          if (valueArray[i]) {
+            hexArray.push(parseInt(valueArray[i], 16).toString(16));
+            decimalArray.push(parseInt(valueArray[i], 16));
+          }
+        }
+        cmd = decimalArray;
+      } else {
+        cmd = value;
       }
 
       this.addMsg(cmd.toString());
@@ -4577,6 +4642,62 @@ var CmdMode = function (_Component) {
                 _react2.default.createElement(
                   'div',
                   { className: 'form-group col-xs-9 cmd' },
+                  _react2.default.createElement('textarea', { type: 'text', defaultValue: 'G91 G01 A10 F800', className: 'form-control cmd-input' })
+                ),
+                _react2.default.createElement(
+                  'button',
+                  { type: 'button', className: 'btn btn-default col-xs-3 btn-send', onTouchStart: this.sendTextArea.bind(this) },
+                  'Send'
+                )
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'cmd-item' },
+                _react2.default.createElement(
+                  'div',
+                  { className: 'form-group col-xs-9 cmd' },
+                  _react2.default.createElement('input', { type: 'text', className: 'form-control cmd-input', placeholder: 'G91 G01 A10 F800', defaultValue: 'G91 G01 A10 F800' })
+                ),
+                _react2.default.createElement(
+                  'button',
+                  { type: 'button', className: 'btn btn-default col-xs-3 btn-send', onTouchStart: this.send.bind(this) },
+                  'Send'
+                )
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'cmd-item' },
+                _react2.default.createElement(
+                  'div',
+                  { className: 'form-group col-xs-9 cmd' },
+                  _react2.default.createElement('input', { type: 'text', className: 'form-control cmd-input', defaultValue: 'G91 G01 A10 F800\\n' })
+                ),
+                _react2.default.createElement(
+                  'button',
+                  { type: 'button', className: 'btn btn-default col-xs-3 btn-send', onTouchStart: this.send.bind(this) },
+                  'Send'
+                )
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'cmd-item' },
+                _react2.default.createElement(
+                  'div',
+                  { className: 'form-group col-xs-9 cmd' },
+                  _react2.default.createElement('input', { type: 'text', className: 'form-control cmd-input', defaultValue: 'G91 G01 A10 F800\\r\\n' })
+                ),
+                _react2.default.createElement(
+                  'button',
+                  { type: 'button', className: 'btn btn-default col-xs-3 btn-send', onTouchStart: this.send.bind(this) },
+                  'Send'
+                )
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'cmd-item' },
+                _react2.default.createElement(
+                  'div',
+                  { className: 'form-group col-xs-9 cmd' },
                   _react2.default.createElement('input', { type: 'text', className: 'form-control cmd-input', placeholder: 'ff 55 03 00 01 00', defaultValue: 'ff 55 06 00 02 0a 09 ff 00' })
                 ),
                 _react2.default.createElement(
@@ -4605,7 +4726,7 @@ var CmdMode = function (_Component) {
                 _react2.default.createElement(
                   'div',
                   { className: 'form-group col-xs-9 cmd' },
-                  _react2.default.createElement('input', { type: 'text', className: 'form-control cmd-input', placeholder: 'G91', defaultValue: 'G91' })
+                  _react2.default.createElement('input', { type: 'text', className: 'form-control cmd-input', placeholder: 'G01 A10 F800', defaultValue: 'G01 A10 F800' })
                 ),
                 _react2.default.createElement(
                   'button',
@@ -4619,49 +4740,7 @@ var CmdMode = function (_Component) {
                 _react2.default.createElement(
                   'div',
                   { className: 'form-group col-xs-9 cmd' },
-                  _react2.default.createElement('input', { type: 'text', className: 'form-control cmd-input', placeholder: 'G01 A10 F2000', defaultValue: 'G01 A10 F2000' })
-                ),
-                _react2.default.createElement(
-                  'button',
-                  { type: 'button', className: 'btn btn-default col-xs-3 btn-send', onTouchStart: this.send.bind(this) },
-                  'Send'
-                )
-              ),
-              _react2.default.createElement(
-                'div',
-                { className: 'cmd-item' },
-                _react2.default.createElement(
-                  'div',
-                  { className: 'form-group col-xs-9 cmd' },
-                  _react2.default.createElement('input', { type: 'text', className: 'form-control cmd-input', placeholder: 'G90', defaultValue: 'G90' })
-                ),
-                _react2.default.createElement(
-                  'button',
-                  { type: 'button', className: 'btn btn-default col-xs-3 btn-send', onTouchStart: this.send.bind(this) },
-                  'Send'
-                )
-              ),
-              _react2.default.createElement(
-                'div',
-                { className: 'cmd-item' },
-                _react2.default.createElement(
-                  'div',
-                  { className: 'form-group col-xs-9 cmd' },
-                  _react2.default.createElement('input', { type: 'text', className: 'form-control cmd-input', placeholder: 'G01 A10 F2000', defaultValue: 'G01 A10 F2000' })
-                ),
-                _react2.default.createElement(
-                  'button',
-                  { type: 'button', className: 'btn btn-default col-xs-3 btn-send', onTouchStart: this.send.bind(this) },
-                  'Send'
-                )
-              ),
-              _react2.default.createElement(
-                'div',
-                { className: 'cmd-item' },
-                _react2.default.createElement(
-                  'div',
-                  { className: 'form-group col-xs-9 cmd' },
-                  _react2.default.createElement('input', { type: 'text', className: 'form-control cmd-input', placeholder: 'G01 A10 B10 C10 D10 X10 F2000', defaultValue: 'G01 A10 B10 C10 D10 X10 F2000' })
+                  _react2.default.createElement('input', { type: 'text', className: 'form-control cmd-input', placeholder: 'G01 A10 B10 C10 D10 X10 F800', defaultValue: 'G01 A10 B10 C10 D10 X10 F800' })
                 ),
                 _react2.default.createElement(
                   'button',
@@ -5139,9 +5218,6 @@ var appList = [{
 }, {
   "text": "编程模式",
   "name": "codeMode"
-}, {
-  "text": "键盘模式",
-  "name": "keyboardMode"
 }];
 
 var HomePage = function (_Component) {
