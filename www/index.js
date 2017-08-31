@@ -4334,6 +4334,8 @@ var Action = function () {
     key: "move",
     value: function move(axis, angle, speed) {
       speed = speed > 2000 ? 2000 : speed;
+      angle = parseInt(angle);
+      speed = parseInt(speed);
       var cmd = 'G01 ' + axis + angle + ' F' + speed;
       _comm.comm.send(cmd);
     }
@@ -4890,6 +4892,12 @@ var CodeMode = function (_Component) {
         'section',
         { className: 'box code-mode' },
         _react2.default.createElement(_toolbar2.default, null),
+        _react2.default.createElement(
+          'div',
+          { className: 'code-topbar' },
+          _react2.default.createElement('button', { className: 'btn-project btn fa fa-folder-o' }),
+          _react2.default.createElement('button', { className: 'btn-save btn fa fa-save' })
+        ),
         _react2.default.createElement('div', { className: 'box-content code-content', id: 'blocklyDiv' }),
         _react2.default.createElement(_runButton2.default, null),
         _react2.default.createElement(_linkDialog2.default, null)
@@ -5057,7 +5065,9 @@ var ControlMode = function (_Component) {
       nippleObj.on('start end', function (evt, data) {}).on('move', function (evt, data) {
         // console.log(data.direction.angle + ':' + data.distance + ':' + data.force);
         var axis = nippleObj.axisMap[data.direction.angle];
-        that.sendData(data, axis);
+        setTimeout(function () {
+          that.sendData(data, axis);
+        }, 100);
       }).on('dir:up dir:left dir:down dir:right', function (evt, data) {}).on('pressure', function (evt, data) {});
     }
   }, {
@@ -6038,7 +6048,7 @@ exports = module.exports = __webpack_require__(18)(undefined);
 
 
 // module
-exports.push([module.i, "@charset \"UTF-8\";\nbody,\nul,\nli,\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\np {\n  padding: 0;\n  margin: 0; }\n\nul,\nol,\nli {\n  list-style: none; }\n\nbody {\n  color: #666; }\n\na {\n  text-decoration: none;\n  color: #666; }\n\n@media only screen and (max-width: 768px) {\n  html {\n    font-size: 14px; } }\n\n@media only screen and (max-width: 568px) {\n  html {\n    font-size: 12px; } }\n\n/* 字体颜色 */\n/* 顶部工具栏高度 */\n/* 左侧工具栏宽度 */\n* {\n  user-select: none; }\n\na {\n  text-decoration: none !important; }\n\n.fa {\n  color: #000; }\n\n.box {\n  width: 100%;\n  height: 100%;\n  display: flex;\n  flex-direction: column; }\n\n.box-content {\n  flex: 1; }\n\n.btn {\n  cursor: pointer;\n  outline: none; }\n\n.cbtn {\n  background-image: none;\n  border: 1px solid transparent;\n  touch-action: manipulation;\n  border-radius: 4px;\n  user-select: none;\n  background: #fff;\n  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);\n  position: relative;\n  color: rgba(0, 0, 0, 0.65);\n  background-color: #fff;\n  border-color: #d9d9d9;\n  outline: none;\n  padding: 0.4rem 1rem;\n  font-size: 1.5rem;\n  margin: 0 1rem; }\n\n.cbtn:active {\n  position: relative;\n  top: 3px; }\n\n.app-toolbar {\n  background: #ccc; }\n\n.blocklyToolboxDiv {\n  border-right: none !important;\n  overflow: visible !important;\n  top: 0 !important; }\n\n.blocklyTreeRoot {\n  height: 100%; }\n\n.blocklyTreeRoot div[role=\"group\"]:nth-child(2) {\n  display: flex;\n  flex-direction: column;\n  height: 100%; }\n\n.blocklyTreeRoot div[role=\"treeitem\"] {\n  border-bottom: 1px solid #e1f2f9;\n  flex: 1;\n  -webkit-transition: all .3s ease;\n  -o-transition: all .3s ease;\n  transition: all .3s ease; }\n\n.blocklyTreeRoot div[role=\"treeitem\"] .blocklyTreeRow {\n  -webkit-transition: all .1s ease;\n  -o-transition: all .1s ease;\n  transition: all .1s ease;\n  height: 100%;\n  margin-bottom: 0;\n  display: flex;\n  flex-direction: row;\n  justify-content: center;\n  align-items: center;\n  padding-right: 0.3rem !important;\n  padding-left: 0.3rem !important; }\n\n.blocklyTreeRoot div .blocklyTreeRow .blocklyTreeIcon {\n  display: none !important; }\n\n.blocklyTreeRoot div .blocklyTreeRow .blocklyTreeLabel {\n  height: 30px;\n  line-height: 30px;\n  text-align: center;\n  display: block;\n  color: #6e7f8f;\n  font-size: 1.2em; }\n\n.blocklyTreeRoot div .blocklyTreeSelected .blocklyTreeLabel {\n  color: #fff; }\n", ""]);
+exports.push([module.i, "@charset \"UTF-8\";\nbody,\nul,\nli,\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\np {\n  padding: 0;\n  margin: 0; }\n\nul,\nol,\nli {\n  list-style: none; }\n\nbody {\n  color: #666; }\n\na {\n  text-decoration: none;\n  color: #666; }\n\n@media only screen and (max-width: 768px) {\n  html {\n    font-size: 14px; } }\n\n@media only screen and (max-width: 568px) {\n  html {\n    font-size: 12px; } }\n\n/* 字体颜色 */\n/* 顶部工具栏高度 */\n/* 左侧工具栏宽度 */\n* {\n  user-select: none; }\n\na {\n  text-decoration: none !important; }\n\n.fa {\n  color: #000; }\n\n.box {\n  width: 100%;\n  height: 100%;\n  display: flex;\n  flex-direction: column; }\n\n.box-content {\n  flex: 1; }\n\n.btn {\n  cursor: pointer;\n  outline: none; }\n\n.cbtn {\n  background-image: none;\n  border: 1px solid transparent;\n  touch-action: manipulation;\n  border-radius: 4px;\n  user-select: none;\n  background: #fff;\n  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);\n  position: relative;\n  color: rgba(0, 0, 0, 0.65);\n  background-color: #fff;\n  border-color: #d9d9d9;\n  outline: none;\n  padding: 0.4rem 1rem;\n  font-size: 1.5rem;\n  margin: 0 1rem; }\n\n.cbtn:active {\n  position: relative;\n  top: 3px; }\n\n.app-toolbar {\n  background: #ccc; }\n\n.blocklyToolboxDiv {\n  border-right: none !important;\n  overflow: visible !important;\n  top: 0 !important; }\n\n.blocklyTreeRoot {\n  height: 100%; }\n\n.blocklyTreeRoot div[role=\"group\"]:nth-child(2) {\n  display: flex;\n  flex-direction: column;\n  height: 100%; }\n\n.blocklyTreeRoot div[role=\"treeitem\"] {\n  border-bottom: 1px solid #e1f2f9;\n  flex: 1;\n  -webkit-transition: all .3s ease;\n  -o-transition: all .3s ease;\n  transition: all .3s ease; }\n\n.blocklyTreeRoot div[role=\"treeitem\"] .blocklyTreeRow {\n  -webkit-transition: all .1s ease;\n  -o-transition: all .1s ease;\n  transition: all .1s ease;\n  height: 100%;\n  margin-bottom: 0;\n  display: flex;\n  flex-direction: row;\n  justify-content: center;\n  align-items: center;\n  padding-right: 0.3rem !important;\n  padding-left: 0.3rem !important; }\n\n.blocklyTreeRoot div .blocklyTreeRow .blocklyTreeIcon {\n  display: none !important; }\n\n.blocklyTreeRoot div .blocklyTreeRow .blocklyTreeLabel {\n  height: 30px;\n  line-height: 30px;\n  text-align: center;\n  display: block;\n  color: #6e7f8f;\n  font-size: 1.2em; }\n\n.blocklyTreeRoot div .blocklyTreeSelected .blocklyTreeLabel {\n  color: #fff; }\n\n/*  topbar */\n.code-topbar {\n  height: 4.2rem;\n  position: absolute;\n  top: 0;\n  left: 5rem;\n  right: 5rem;\n  z-index: 99999; }\n\n.btn {\n  background: none;\n  outline: none !important; }\n\n.code-topbar .btn {\n  float: right;\n  font-size: 2.4rem; }\n", ""]);
 
 // exports
 
@@ -6136,7 +6146,7 @@ exports = module.exports = __webpack_require__(18)(undefined);
 
 
 // module
-exports.push([module.i, "@charset \"UTF-8\";\nbody,\nul,\nli,\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\np {\n  padding: 0;\n  margin: 0; }\n\nul,\nol,\nli {\n  list-style: none; }\n\nbody {\n  color: #666; }\n\na {\n  text-decoration: none;\n  color: #666; }\n\n@media only screen and (max-width: 768px) {\n  html {\n    font-size: 14px; } }\n\n@media only screen and (max-width: 568px) {\n  html {\n    font-size: 12px; } }\n\n/* 字体颜色 */\n/* 顶部工具栏高度 */\n/* 左侧工具栏宽度 */\n* {\n  user-select: none; }\n\na {\n  text-decoration: none !important; }\n\n.fa {\n  color: #000; }\n\n.box {\n  width: 100%;\n  height: 100%;\n  display: flex;\n  flex-direction: column; }\n\n.box-content {\n  flex: 1; }\n\n.btn {\n  cursor: pointer;\n  outline: none; }\n\n.cbtn {\n  background-image: none;\n  border: 1px solid transparent;\n  touch-action: manipulation;\n  border-radius: 4px;\n  user-select: none;\n  background: #fff;\n  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);\n  position: relative;\n  color: rgba(0, 0, 0, 0.65);\n  background-color: #fff;\n  border-color: #d9d9d9;\n  outline: none;\n  padding: 0.4rem 1rem;\n  font-size: 1.5rem;\n  margin: 0 1rem; }\n\n.cbtn:active {\n  position: relative;\n  top: 3px; }\n\n.app-toolbar {\n  position: relative;\n  padding: 0.8rem 1rem; }\n\n.ble-btn {\n  float: right;\n  border: 1px solid #333;\n  padding: 0.3rem 0.8rem;\n  background: #fff;\n  outline: none; }\n\n.ble-btn-active {\n  color: #08c !important; }\n", ""]);
+exports.push([module.i, "@charset \"UTF-8\";\nbody,\nul,\nli,\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\np {\n  padding: 0;\n  margin: 0; }\n\nul,\nol,\nli {\n  list-style: none; }\n\nbody {\n  color: #666; }\n\na {\n  text-decoration: none;\n  color: #666; }\n\n@media only screen and (max-width: 768px) {\n  html {\n    font-size: 14px; } }\n\n@media only screen and (max-width: 568px) {\n  html {\n    font-size: 12px; } }\n\n/* 字体颜色 */\n/* 顶部工具栏高度 */\n/* 左侧工具栏宽度 */\n* {\n  user-select: none; }\n\na {\n  text-decoration: none !important; }\n\n.fa {\n  color: #000; }\n\n.box {\n  width: 100%;\n  height: 100%;\n  display: flex;\n  flex-direction: column; }\n\n.box-content {\n  flex: 1; }\n\n.btn {\n  cursor: pointer;\n  outline: none; }\n\n.cbtn {\n  background-image: none;\n  border: 1px solid transparent;\n  touch-action: manipulation;\n  border-radius: 4px;\n  user-select: none;\n  background: #fff;\n  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);\n  position: relative;\n  color: rgba(0, 0, 0, 0.65);\n  background-color: #fff;\n  border-color: #d9d9d9;\n  outline: none;\n  padding: 0.4rem 1rem;\n  font-size: 1.5rem;\n  margin: 0 1rem; }\n\n.cbtn:active {\n  position: relative;\n  top: 3px; }\n\n.app-toolbar {\n  position: relative;\n  padding: 0.8rem 1rem;\n  height: 4.2rem; }\n\n.ble-btn {\n  float: right;\n  border: 1px solid #333;\n  padding: 0.3rem 0.8rem;\n  background: #fff;\n  outline: none; }\n\n.ble-btn-active {\n  color: #08c !important; }\n", ""]);
 
 // exports
 
