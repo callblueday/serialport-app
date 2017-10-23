@@ -15,18 +15,18 @@
     <script src="./lib/blockly_compressed.js"></script>
     <script src="./lib/blocks_compressed.js"></script>
     <script src="./lib/javascript_compressed.js"></script>
-    <script src="./lib/msg/js/en.js"></script>
+    <script src="./lib/msg/js/zh-hans.js"></script>
     <script src="./static/js/jquery-2.1.3.min.js"></script>
     <script src="./static/js/bootstrap.min.js"></script>
     <script src="./static/js/classie.js"></script>
     <script src="./static/js/modernizr.custom.js"></script>
 
     <xml id="toolbox" style="display: none">
-      <category name="Start">
+      <category name="开始">
           <block type="when_start"></block>
       </category>
-      <category name="Move">
-          <block type="move_axis">
+      <category name="运动">
+          <!-- <block type="move_axis">
             <value name="ANGLE">
                 <shadow type="math_number">
                     <field name="NUM">10</field>
@@ -39,10 +39,59 @@
             </value>
           </block>
 
-          <block type="move_set_mode"></block>
+          <block type="move_all_axis">
+            <value name="ANGLE1">
+                <shadow type="math_number">
+                    <field name="NUM">10</field>
+                </shadow>
+            </value>
+            <value name="ANGLE2">
+                <shadow type="math_number">
+                    <field name="NUM">10</field>
+                </shadow>
+            </value>
+            <value name="ANGLE3">
+                <shadow type="math_number">
+                    <field name="NUM">10</field>
+                </shadow>
+            </value>
+            <value name="ANGLE4">
+                <shadow type="math_number">
+                    <field name="NUM">10</field>
+                </shadow>
+            </value>
+            <value name="ANGLE5">
+                <shadow type="math_number">
+                    <field name="NUM">10</field>
+                </shadow>
+            </value>
+            <value name="ANGLE6">
+                <shadow type="math_number">
+                    <field name="NUM">10</field>
+                </shadow>
+            </value>
+            <value name="SPEED">
+                <shadow type="math_number">
+                    <field name="NUM">1000</field>
+                </shadow>
+            </value>
+          </block>
+
+          <block type="move_set_mode"></block> -->
+
+          <block type="move_forward_with_time">
+            <value name="SECOND">
+                <shadow type="math_number">
+                    <field name="NUM">1</field>
+                </shadow>
+            </value>
+          </block>
+
+          <block type="move_forward"></block>
+          <block type="move_stop"></block>
 
       </category>
-      <category name="Logic">
+      <category name="逻辑">
           <block type="controls_if"></block>
           <block type="controls_if">
             <mutation else="1"></mutation>
@@ -57,7 +106,7 @@
           <block type="logic_null"></block>
           <block type="logic_ternary"></block>
       </category>
-      <category name="Loops">
+      <category name="控制">
 
         <block type="wait">
           <value name="DELAY">
@@ -66,6 +115,7 @@
               </shadow>
           </value>
         </block>
+        <block type="controls_repeat_forever"></block>
 
         <block type="controls_repeat_ext">
           <value name="TIMES">
@@ -96,7 +146,7 @@
         <block type="controls_forEach"></block>
         <block type="controls_flow_statements"></block>
       </category>
-      <category name="Math">
+      <category name="数学">
         <block type="math_number"></block>
         <block type="math_arithmetic"></block>
         <block type="math_single"></block>
@@ -132,8 +182,8 @@
         </block>
         <block type="math_random_float"></block>
       </category>
-      <category name="Variables" custom="VARIABLE"></category>
-      <category name="Functions" custom="PROCEDURE"></category>
+      <category name="变量" custom="VARIABLE"></category>
+      <category name="函数" custom="PROCEDURE"></category>
     </xml>
   <script type="text/javascript" src="lib.min.js"></script><script type="text/javascript" src="index.js"></script></body>
 </html>
