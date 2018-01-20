@@ -1,0 +1,53 @@
+@import '../../css/base';
+@import '../../css/dialog';
+
+.dialogHeader i {
+  padding: 10px;
+}
+
+.headerRight i:active, .connectList li:active{
+  background-color: #ccc;
+}
+
+.dialogHeader .headerRight {
+  float: right;
+}
+
+.connectList {
+  flex: 1;
+  padding: 0;
+  padding-top: 1rem;
+  overflow-y: auto;
+}
+
+.connectList li {
+  display: flex;
+  flex-direction: row;
+  font-size: 28px;
+  padding: 0.85rem 0.3rem;
+  color: #333;
+  list-style: none;
+  overflow: hidden;
+  font-size: 1.2rem;
+}
+
+.connectList .mac_address {
+  flex: 1;
+}
+
+.connectList .distance {
+  width: 6rem;
+  text-align: center;
+  overflow: hidden;
+}
+
+@media screen and (min-width: 768px) {
+  .connectList li {
+    font-size: 2rem;
+    padding: 1rem 0.5rem;
+  }
+
+  .connectList .distance {
+    width: 13rem;
+  }
+}

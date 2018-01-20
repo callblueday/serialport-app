@@ -1,0 +1,30 @@
+@import '../../css/base';
+
+.app-toolbar {
+  position: relative;
+  padding: 0.8rem 1rem;
+  height: $toolbar-height;
+  background: #ddd;
+}
+
+.ble-btn {
+  float: right;
+  border: 1px solid #333;
+  padding: 0.3rem 0.8rem;
+  background: #fff;
+  outline: none;
+}
+
+.ble-btn-active {
+  color: #08c!important;
+}
+
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px)  {
+  .app-toolbar {
+    padding: 1rem;
+    height: 6rem;
+    font-size: 2rem;
+  }
+}

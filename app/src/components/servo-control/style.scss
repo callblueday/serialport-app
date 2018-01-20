@@ -1,0 +1,85 @@
+@import '../../css/base';
+
+.servo-control {
+
+  .topbar h3 {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #2980b9;
+  }
+
+
+  .servo-control {
+    padding: 2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    button {
+      outline: none;
+      border: none;
+      color: #333;
+    }
+
+    .blue {
+      background: #BFDFFF;
+    }
+    .green {
+      background: #BFFFCF;
+    }
+    .yellow {
+      background: #FFE599;
+    }
+    .orange {
+      background: #FFCC99;
+    }
+    .lightred {
+      background: #FFBFBF;
+    }
+
+    .joystick {
+      flex: 3;
+      padding-right: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      table {
+        width: 100%;
+
+        tr {
+          text-align: center;
+        }
+        td {
+          width: 33.33333%;
+          padding: 0.2rem;
+
+          button {
+            width: 98%;
+            padding: 1rem 0.8rem;
+          }
+        }
+      }
+    }
+
+    .other-opts {
+      flex: 2;
+      padding-left: 2rem;
+      border-left: 1px solid #ddd;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      button {
+        margin: 0.4rem;
+        width: 7rem;
+        padding: 0.6rem 1rem;
+      }
+    }
+  }
+}

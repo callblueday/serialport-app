@@ -1,0 +1,91 @@
+@import '../../css/base';
+
+.blocklyToolboxDiv {
+  border-right: none !important;
+  overflow: visible!important;
+  top: 0!important;
+}
+
+.blocklyMainBackground {
+  // fill: #edf9ff!important;
+}
+
+.blocklyTreeRoot {
+  height: 100%;
+  padding: 0;
+}
+
+.blocklyTreeRoot div[role="group"]:nth-child(2) {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.blocklyTreeRoot div[role="treeitem"] {
+    border-bottom: 1px solid #e1f2f9;
+    flex: 1;
+    -webkit-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    transition: all .3s ease;
+}
+
+.blocklyTreeRoot div[role="treeitem"] .blocklyTreeRow {
+    -webkit-transition: all .1s ease;
+    -o-transition: all .1s ease;
+    transition: all .1s ease;
+    height: 100%;
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0 1rem!important;
+}
+
+.blocklyTreeRoot div/* [role="treeitem"] */ .blocklyTreeRow .blocklyTreeIcon {
+    display: none!important;
+}
+.blocklyTreeRoot div/* [role="treeitem"] */ .blocklyTreeRow .blocklyTreeLabel {
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    display: block;
+    color: #6e7f8f;
+    font-size: 1.2em;
+}
+.blocklyTreeRoot div/* [role="treeitem"] */ .blocklyTreeSelected {
+
+}
+.blocklyTreeRoot div/* [role="treeitem"] */ .blocklyTreeSelected .blocklyTreeLabel {
+  color: #fff;
+}
+
+/*  topbar */
+.code-topbar .btn {
+  background: none;
+  outline: none!important;
+  float: right;
+  font-size: 2.4rem;
+}
+
+
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px)  {
+  .blocklyText,
+  .blocklyTreeRoot div .blocklyTreeRow .blocklyTreeLabel {
+    font-size: 2rem!important;
+  }
+  .code-topbar {
+    padding-right: 2rem!important;
+    .btn {
+      font-size: 4rem!important;
+    }
+  }
+
+  .run-btn {
+    font-size: 2rem;
+    padding: 1.5rem 4rem;
+    margin-right: 3rem;
+  }
+}

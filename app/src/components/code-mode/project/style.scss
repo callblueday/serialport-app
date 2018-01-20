@@ -1,0 +1,58 @@
+@import '../../../css/base';
+@import '../../../css/dialog';
+
+.run-btn {
+  position: absolute;
+  bottom: 3rem;
+  right: 3rem;
+  font-size: 1.2rem;
+  border: 1px solid #ddd;
+  color: #333;
+  cursor: pointer;
+  min-width: 7rem;
+  padding: 0.8rem 0;
+  text-align: center;
+  background: #fff;
+  outline: none;
+  border-radius: 5px;
+  transition: all .3s reae;
+}
+
+.run-btn.running {
+  background: #fc5c5f;
+  color: #fff;
+}
+.project-list {
+  overflow: auto;
+}
+.project-list li {
+  height: 4rem;
+  line-height: 4rem;
+  font-size: 1.2rem;
+  line-height: 4rem;
+  padding: 0 0.5rem;
+  display: flex;
+  flex-direction: row;
+}
+
+.menu-item .name {
+  flex: 1;
+}
+
+.menu-item .name:active {
+  background: #ccc;
+}
+
+.menu-item .opt {
+  width: 6rem;
+}
+
+.menu-item .opt i {
+  display: inline-block;
+  font-size: 2rem;
+  margin: 0 0.5rem;
+}
+
+.menu-item .opt i.icon-delete {
+  color: #f54545;
+}
