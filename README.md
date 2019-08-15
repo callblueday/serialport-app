@@ -41,6 +41,10 @@ npm run cp
 
 全局安装 cordova，教程参考：[http://cordova.apache.org/](http://cordova.apache.org/)
 
+```
+npm install -g cordova@8.1.2
+```
+
 ## 环境安装
 ### 环境安装
 
